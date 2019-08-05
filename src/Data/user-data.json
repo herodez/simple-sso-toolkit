@@ -1,0 +1,6 @@
+{
+  "user": {
+    "username": "test"
+  },
+  "security_roles": ["ROLE_USER"]
+}

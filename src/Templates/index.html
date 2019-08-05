@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<textarea class="use-ace-editor" data-ace-mode="json" data-height="300px">{user_data}</textarea>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.5/ace.js"></script>
+<script>
+  $(function () {
+
+    $('.use-ace-editor').each(function () {
+      var $textarea = $(this).hide()
+      var editor_id = $textarea.attr('id') + '-editor'
+      var $editor = $('<div />', {
+        id: editor_id
+      }).css({
+        width: '100%',
+        height: $textarea.data('height') || '100px'
+      })
+      $textarea.after($editor)
+      var editor = ace.edit(editor_id)
+      editor.setValue($textarea.val(), 1)
+      var editorSession = editor.getSession()
+      editor.setTheme('ace/theme/twilight')
+      editorSession.setMode('ace/mode/' + ($textarea.data('ace-mode') || 'yaml'))
+      editorSession.setUseWrapMode(true)
+      editorSession.on('change', function () {
+        $textarea.val(editorSession.getValue())
+      })
+    })
+  })
+
+</script>
+</body>
+</html>
